@@ -1,0 +1,49 @@
+.card {
+    -webkit-box-shadow: 14px 50px 137px -28px rgba(51, 70, 82, 1);
+    -moz-box-shadow: 14px 50px 137px -28px rgba(51, 70, 82, 1);
+    box-shadow: 14px 50px 137px -28px rgba(51, 70, 82, 1);
+    background-clip: border-box;
+    background-color: #ffffff;
+    border: 10px solid rgba(0, 0, 0, .125);
+    border-radius: 12px;
+}
+
+.card img {
+    width: 100%;
+    height: 15vw;
+    object-fit: contain;
+}
+
+.card .card-body .button {
+    background-color: #ffffff;
+    border: 1px solid #334652;
+    border-radius: 8px;
+    color: #334652;
+    cursor: pointer;
+    font-size: 14px;
+    font-size: .875rem;
+    font-weight: 400;
+    height: auto;
+    line-height: 22px;
+    margin-bottom: 5px;
+    max-width: none;
+    min-width: 125px;
+    padding: .5rem;
+    text-decoration: none;
+    text-transform: none;
+    transition: all .25s ease-in-out;
+}
+
+.button.button--connect,
+.button.button--profile {
+    min-width: 42px;
+}
+
+.card .card-body .button .button__title {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.text-center {
+    text-align: center !important;
+}

@@ -1,0 +1,23 @@
+.footer {
+    background: #334652;
+    border-top: 1px solid #2b2b2d;
+    line-height: 1;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+
+    .copyright {
+        font-weight: 600;
+        font-size: 14px;
+        color: #f9f9f9;
+        letter-spacing: 1.7px;
+        line-height: 28px;
+        padding-top: 20px;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+}
