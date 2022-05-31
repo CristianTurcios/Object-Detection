@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, HostListener, ViewChild } from '@angular/
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
 import html2canvas from 'html2canvas';
 import { Socket } from 'ngx-socket-io';
-import { WebcamImage } from 'ngx-webcam';
 import { CameraComponent } from './camera/camera.component';
 
 @Component({
@@ -18,47 +17,17 @@ export class AppComponent {
   private video!: HTMLVideoElement;
   webcamImages: Array<any> = [];
   @ViewChild(CameraComponent) camera!:CameraComponent;
-  cats = [
-    {
-      imageUrl: 'https://machinethink.net/images/bounding-boxes/cat@2x.jpg',
-      text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.'
-    },
-    {
-      imageUrl: 'https://nanonets.github.io/tutorials-page/docs/assets/annotation-guidelines/tight-bb-wrong.jpg',
-      text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.'
-    },
-    {
-      imageUrl: 'https://miro.medium.com/max/1400/0*5q24DtFRyZQzDUu1.jpg',
-      text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.'
-    },
-    {
-      imageUrl: 'https://d1m75rqqgidzqn.cloudfront.net/wp-data/2020/07/23225538/3-1024x984.jpg',
-      text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.'
-    },
-    {
-      imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDt3_CDqh9nmreXQHp4rS2CRoKPXHYoPVPaofZ9aeqW8SRswwPuErY9TG2xJcxWEQQYB8&usqp=CAU',
-      text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.'
-    },
-    {
-      imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTJI7gfgEJ7mDM2eFbcjK32qhqJKhzVw9UU3ChvJ87whnuUJjKe06GxdLlzpACc9xFTag&usqp=CAU',
-      text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.'
-    },
-    {
-      imageUrl: 'https://i.stack.imgur.com/X68wH.jpg',
-      text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.'
-    },
-    {
-      imageUrl: 'https://meenavyas.files.wordpress.com/2018/11/out1.jpg?w=720',
-      text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.'
-    },
-  ];
-  latestPredictions = [];
 
   constructor(
     // private socket: Socket,
+    private cdRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
+    this.cdRef.detectChanges();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -73,15 +42,12 @@ export class AppComponent {
     this.predictWithCocoModel();
   }
 
-  async handleSnapshot(snapshot: string) {
-    // First Approach, Only image without the rounded box and text
+  async handleSnapshot(snapshot: any) {
+    // The snapshot parameter get the capture without predictions, that's why I prefer to use HTML2Canvas
+    const canvas = await html2canvas(<HTMLCanvasElement>document.getElementById("capture"));
     this.webcamImages.push({
-      imageUrl: snapshot,
+      imageUrl: canvas.toDataURL(),
     });
-
-    // const canvas = await html2canvas(<HTMLCanvasElement>document.getElementById("capture"));
-    // console.log('canvas', canvas);
-    // document.body.appendChild(canvas); 
   }
 
   async predictWithCocoModel(): Promise<void> {

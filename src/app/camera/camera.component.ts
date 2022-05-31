@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import {Component, OnInit, ChangeDetectorRef, HostListener, EventEmitter, Output, Input} from '@angular/core';
+import {Component, OnInit, HostListener, EventEmitter, Output, Input} from '@angular/core';
 import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
 
 @Component({
@@ -18,14 +18,12 @@ export class CameraComponent implements OnInit {
   public deviceId: string = '';
   public facingMode: string = 'environment';
   private nextWebcam: Subject<boolean | string> = new Subject<boolean | string>();
-  // public webcamImage: Array<any> = [];
   private trigger: Subject<void> = new Subject<void>();
   private video!: HTMLVideoElement;
   @Output() videoStream = new EventEmitter<HTMLVideoElement>();
   @Output() snapshot = new EventEmitter<string>();
 
   constructor(
-    private cdRef: ChangeDetectorRef
   ) { }
 
   @HostListener('window:resize', ['$event'])
@@ -35,18 +33,13 @@ export class CameraComponent implements OnInit {
     this.height = win.innerHeight;
   }
 
-  ngOnInit(): void {
-    WebcamUtil.getAvailableVideoInputs()
-      .then((mediaDevices: MediaDeviceInfo[]) => {
-        this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
-      });
+  ngOnInit() {
   }
 
   ngAfterViewInit(): void {
     this.onResize();
     this.readAvailableVideoInputs();
     this.video = <HTMLVideoElement>document.getElementsByTagName('video')[0];
-    this.cdRef.detectChanges();
     this.video.addEventListener('loadeddata', () => this.videoStream.emit(this.video), false);
   }
 

@@ -3,17 +3,12 @@
     <div class="wrapper">
       <div class="intro" (window:resize)="onResize($event)" id="capture">
         <app-camera (videoStream)="videoStream($event)" (snapshot)="handleSnapshot($event)"></app-camera>
-        <!-- <app-camera (videoStream)="videoStream($event)" (snapshot)="handleSnapshot()"></app-camera> -->
         <canvas id="canvas" [width]="800" [height]="600"></canvas>
         <div class="intro-text">
           <h1 *ngIf="!modelLoaded">Loading Model, please wait...</h1>
           <h1>Object Detection IA</h1>
           <p>Come here and catch those objects.</p>
-          <!-- First Approach -->
           <button type="button" class="btn btn-light" (click)="camera?.triggerSnapshot();">Take A Snapshot</button>
-
-          <!-- Second Approach -->
-          <!-- <button type="button" class="btn btn-light" (click)="handleSnapshot()">Take A Snapshot</button> -->
           <button class="camera-switch" (click)="camera?.showNextWebcam(true);" *ngIf="camera?.multipleWebcamsAvailable"></button>
         </div>
       </div>
@@ -36,7 +31,6 @@
     <div class="row">
       <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" *ngFor="let image of webcamImages">
         <app-card [imageUrl]="image.imageUrl" [text]="image?.text"></app-card>
-        <!-- {{image.outerHTML}} -->
       </div>
     </div>
   </div>
