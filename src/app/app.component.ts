@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, HostListener, ViewChild } from '@angular/core';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
+import html2canvas from 'html2canvas';
 import { Socket } from 'ngx-socket-io';
 import { WebcamImage } from 'ngx-webcam';
 import { CameraComponent } from './camera/camera.component';
@@ -51,10 +52,10 @@ export class AppComponent {
       text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.'
     },
   ];
+  latestPredictions = [];
 
   constructor(
     // private socket: Socket,
-    private cdRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -72,10 +73,15 @@ export class AppComponent {
     this.predictWithCocoModel();
   }
 
-  handleSnapshot(snapshot: string): void {
+  async handleSnapshot(snapshot: string) {
+    // First Approach, Only image without the rounded box and text
     this.webcamImages.push({
       imageUrl: snapshot,
     });
+
+    // const canvas = await html2canvas(<HTMLCanvasElement>document.getElementById("capture"));
+    // console.log('canvas', canvas);
+    // document.body.appendChild(canvas); 
   }
 
   async predictWithCocoModel(): Promise<void> {
@@ -126,5 +132,4 @@ export class AppComponent {
       ctx.fillText(prediction.class, x, y);
     });
   };
-  //
 }
