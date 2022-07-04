@@ -10,18 +10,18 @@
 <div class="container">
   <video id="videoElement" playsinline style="display:none"></video>
   <canvas id="canvasElement" width="800px" height="600px"></canvas>
-  <div class="landmark-grid-container"></div>
+  <!-- <div class="landmark-grid-container"></div> -->
 </div>
 <label><input type="checkbox" id="showimg" checked>show original image</label>
-<label><input type="checkbox" id="mirrormode">mirror mode</label>
+<!-- <label><input type="checkbox" id="mirrormode">mirror mode</label> -->
 <label><input type="checkbox" id="videomode" checked>video mode</label>
 <input type="text" id="thrinp" value="0.66"> (threshold 0.0~1.0)
 <hr>
-APP: <a href="https://github.com/code4fukui/mediapipe-test/blob/main/objectdetection.html">Object Detection (coco-ssd) test - src on GitHub</a><br>
-LIB: <a href="https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd">tfjs-models/coco-ssd at master · tensorflow/tfjs-models</a><br>
-Blog: <a href=https://fukuno.jig.jp/3567>一日一創</a> by <a href=https://twitter.com/taisukef>@taisukef</a><br>
-<style>
-</style>
+<!-- APP: <a href="https://github.com/code4fukui/mediapipe-test/blob/main/objectdetection.html">Object Detection (coco-ssd) test - src on GitHub</a><br> -->
+<!-- LIB: <a href="https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd">tfjs-models/coco-ssd at master · tensorflow/tfjs-models</a><br> -->
+<!-- Blog: <a href=https://fukuno.jig.jp/3567>一日一創</a> by <a href=https://twitter.com/taisukef>@taisukef</a><br> -->
+<!-- <style>
+</style> -->
 
 <script type="module">
 import { setDropImageFileListener } from "https://js.sabae.cc/setDropImageFileListener.js";
@@ -70,18 +70,17 @@ const tick = async (image) => {
   const w = canvasElement.width;
   const h = canvasElement.height;
   g.save();
-  if (mirrormode.checked) {
-    g.scale(-1, 1);
-    g.translate(-w, 0);
-    /* // 180度回転
-    g.translate(w / 2, h / 2);
-    g.rotate(Math.PI);
-    g.translate(-w / 2, -h / 2);
-    */
-  }
+  // if (mirrormode.checked) {
+  //   g.scale(-1, 1);
+  //   g.translate(-w, 0);
+  //   /* // 180度回転
+  //   g.translate(w / 2, h / 2);
+  //   g.rotate(Math.PI);
+  //   g.translate(-w / 2, -h / 2);
+  //   */
+  // }
   g.clearRect(0, 0, w, h);
   if (showimg.checked) {
-    console.log('entra?');
     const sw = image.width || w;
     const sh = image.height || h;
     const h2 = w / sw * sh;

@@ -1,8 +1,21 @@
 <button (click)='camView = !camView' class="btn btn-info btn-sm mb-2">Toggle Cam Detection</button>
 <main *ngIf="!camView">
   <h2 class="text-center">Image Object Detection</h2>
-  <div class="text-center" *ngIf="isLoading"><small>Cargando predicciones...</small></div>
+  <div class="text-center" *ngIf="isLoading"><small>Cargando modelo...</small></div>
   <hr>
+  <div class="row">
+    <div class="col-8">
+      <label for="Threshold" class="form-label">Threshold {{threshold}} </label>
+      <input type="range" class="form-range" id="customRange1" [(ngModel)]="threshold" (ngModelChange)="onChange($event)">
+    </div>
+    <!-- <div class="col-4">
+      <select class="form-select" aria-label="Default select example">
+        <option value="1" selected>One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div> -->
+  </div>
   <br>
 
   <div class="input-group mb-3">
@@ -14,19 +27,15 @@
   </div>
 
 
-  <div class="d-flex justify-content-center"  *ngIf="isLoading">
+  <div class="d-flex justify-content-center" *ngIf="isLoading">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 
-  <!-- <img [src]="imageSrc" #img *ngIf="imageSrc && !isLoading" class="image-responsive rounded" height="300px" /> -->
-  <!-- <canvas #canvas [width]="100" [height]="100"></canvas> -->
-  <!-- <canvas id="canvas"></canvas> -->
-
   <!--  -->
-  <img id="image" [src]="imageSrc" #img style="display:none"/>
-  <canvas id="canvas"></canvas>
+  <img id="image" [src]="imageSrc" #img style="display:none" />
+  <canvas id="canvas" width="800px" height="600px"></canvas>
   <!--  -->
 
 
