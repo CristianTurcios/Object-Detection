@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://master-ia-355716.ew.r.appspot.com/'
+  apiUrl: 'https://master-api-v1.uc.r.appspot.com'
 };
